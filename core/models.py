@@ -25,4 +25,11 @@ class Purchase(models.Model):
         except Exception as e:
             return None
 
+    @property
+    def investor_name(self):
+        try:
+            return self.investor.name
+        except Exception as e:
+            raise None
+
 from core.signals import *

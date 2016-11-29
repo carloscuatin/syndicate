@@ -17,8 +17,10 @@ class PurchaseSerializer(serializers.ModelSerializer):
     percentage = serializers.SerializerMethodField()
     class Meta:
         model = Purchase
-        # fields = '__all__'
-        fields = ["id", "percentage", "amount_to_sell", "left_amount", "investor", "product"]
+        fields = ['id', 'percentage', 'amount_to_sell', 'investor', 'product', 'investor_name']
 
     def get_percentage(self, obj):
         return obj.percentage
+
+    def get_investor_name(self, obj):
+        return obj.investor_name
