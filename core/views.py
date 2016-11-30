@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-
+from rest_framework import status
+from django.http import Http404
 from core.models import Product, Investor, Purchase
 from core.serializers import ProductSerializer, InvestorSerializer, PurchaseSerializer
 
@@ -23,3 +24,15 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     serializer_class = PurchaseSerializer
     queryset = Purchase.objects.all()
     filter_fields = ('product__id', )
+
+    def get_object(self, id):
+        try:
+            return Purchase.objects.get(id=id)
+        except Purchase.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, format=None):
+        id = request.data['productId']
+        snippet = self.get_object(id=id)
+        snippet.delete()
+        return Response({ "detail": "delete done", "id": id })
