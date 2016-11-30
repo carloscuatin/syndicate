@@ -10,7 +10,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     lookup_field = 'product_id'
-    filter_fields = ('product_id', 'date')
+    filter_fields = ('product_id', 'date',)
 
 
 class InvestorViewSet(viewsets.ModelViewSet):
@@ -23,16 +23,4 @@ class InvestorViewSet(viewsets.ModelViewSet):
 class PurchaseViewSet(viewsets.ModelViewSet):
     serializer_class = PurchaseSerializer
     queryset = Purchase.objects.all()
-    filter_fields = ('product__id', )
-
-    def get_object(self, id):
-        try:
-            return Purchase.objects.get(id=id)
-        except Purchase.DoesNotExist:
-            raise Http404
-
-    def delete(self, request, format=None):
-        id = request.data['productId']
-        snippet = self.get_object(id=id)
-        snippet.delete()
-        return Response({ "detail": "delete done", "id": id })
+    filter_fields = ('product__id',)
