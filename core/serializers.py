@@ -3,9 +3,13 @@ from core.models import Product, Investor, Purchase
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    percentage = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'product_id', 'type', 'date', 'amount', 'amount_discount', 'percentage']
+
+    def get_percentage(self, obj):
+        return obj.percentage
 
 class InvestorSerializer(serializers.ModelSerializer):
     class Meta:

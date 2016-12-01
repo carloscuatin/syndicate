@@ -8,6 +8,14 @@ class Product(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=0)
     amount_discount = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
 
+    @property
+    def percentage(self):
+        try:
+            percentage = (self.amount_discount * 100) / self.amount
+            return 100 - percentage
+        except Exception as e:
+            return None
+
 
 class Investor(models.Model):
     name = models.CharField(max_length=30)
