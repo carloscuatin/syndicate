@@ -1,2 +1,1 @@
-web: gunicorn myproject.wsgi --log-file -
-
+web: gunicorn syndication.wsgi --log-file -
