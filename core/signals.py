@@ -17,6 +17,13 @@ def purchase_post_delete(sender, instance=None, created=False, **kwargs):
 
 
 def purchase_pre_save(sender, instance=None, **kwargs):
+    product = instance.product
+    if product and instance.pk:
+        old = sender.objects.get(pk=instance.pk)
+        product.amount_discount += old.amount_to_sell
+        product.amount_discount -= instance.amount_to_sell
+        product.save()
+        
     if instance.amount_to_sell > instance.product.amount_discount:
         raise Exception("amount_to_sell can't be higher to amount_discount")
 
