@@ -25,6 +25,8 @@ SECRET_KEY = 'i@uvg1(m2xx15nz#3!5)%3c$1x1_60051890x2dg=(3r4_ikta'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+from syndication.local_settings import *
+
 ALLOWED_HOSTS = ['*']
 
 
