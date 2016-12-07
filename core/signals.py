@@ -24,7 +24,7 @@ def purchase_pre_save(sender, instance=None, **kwargs):
         product.amount_discount -= instance.amount_to_sell
         product.save()
         
-    if instance.amount_to_sell > instance.product.amount_discount:
+    if instance.amount_to_sell > instance.product.amount:
         raise Exception("amount_to_sell can't be higher to amount_discount")
 
 
